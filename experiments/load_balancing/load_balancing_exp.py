@@ -70,11 +70,11 @@ def measure_pregel_performance(pregel_class, vertices_data, num_workers):
     pregel = pregel_class(vertices, num_workers)
 
     start_time = time.time()
-    supersteps, total_messages = pregel.run()
+    pregel.run()
     end_time = time.time()
     
     total_time = end_time - start_time
-    print(f"Execution time: {total_time:.5f}s | Supersteps: {supersteps} | Messages: {total_messages} | \t{pregel_class.__name__}\n")
+    print(f"Execution time: {total_time:.10f} seconds\t{pregel_class.__name__}\n")
 
     # worker load balance is (sum of vertex degrees per worker)
     worker_loads = [sum(len(v.out_vertices) for v in worker_list) for worker_list in pregel.partition.values()]
